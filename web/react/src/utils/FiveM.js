@@ -26,31 +26,21 @@ function useNui(action, handler) {
     addDebugLog(`Current handlers for ${action}: ${handlers.get(action).length}`)
 }
 
-function callNui(action, data) {
-    addDebugLog(`Calling NUI action: ${action}`, data)
-    return new Promise((resolve, reject) => {
-        try {
-            fetch(`https://${GetParentResourceName()}/${action}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json; charset=UTF-8'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(resp => resp.json())
-            .then(resp => {
-                addDebugLog(`NUI response received for ${action}`, resp)
-                resolve(resp)
-            })
-            .catch(error => {
-                addDebugLog(`NUI call error for ${action}: ${error.message}`)
-                reject(error)
-            })
-        } catch (error) {
-            addDebugLog(`NUI call failed for ${action}: ${error.message}`)
-            reject(error)
+function callNui(action, data, handler) {
+    fetch(`https://${GetParentResourceName()}/${action}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json; charset=UTF-8'
+        },
+        body: JSON.stringify(data)
+    }).then(resp => resp.json()).then(resp => {
+
+        if (handler !== undefined) {
+            handler(resp);
         }
-    })
+    }).catch(error => {
+        console.error(`Error in NUI event: ${action}`, error); 
+    });
 }
 
 // Add initial debug log

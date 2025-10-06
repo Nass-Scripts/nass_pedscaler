@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNui, callNui } from '../utils/FiveM';
 
-const ScaleMenu = () => {
+const ScaleMenu = ( { locale } ) => {
     // State for current scale value
     const [currentScale, setCurrentScale] = useState(1.0);
     const [minScale, setMinScale] = useState(0.1);
@@ -58,16 +58,16 @@ const ScaleMenu = () => {
 
     return (
         <div className="absolute top-1/2 right-2.5 transform -translate-y-1/2 bg-[#1A1A1A] border-[1px] border-white/50 rounded-xl px-8 py-7 min-w-[320px] max-w-[320px] font-sans animate-[modalFadeIn_0.4s_cubic-bezier(0.16,1,0.3,1)_forwards] opacity-0 shadow-2xl">
-            <h2 className="text-center mb-8 text-white text-xl font-medium tracking-tight leading-tight bg-gradient-to-br from-white to-gray-300 bg-clip-text text-transparent">Height Scale</h2>
+            <h2 className="text-center mb-8 text-white text-xl font-medium tracking-tight leading-tight bg-gradient-to-br from-white to-gray-300 bg-clip-text text-transparent">{locale["height_scale"]}</h2>
             
-            <Item label="Info" value="When entering and exiting a vehicle, the scale will be reset to 1.0." />
+            <Item label={locale["info"]} value={locale["info_value"]} />
 
-            <Item label="Notice" value="When changing terrain you may notice sudden scale adjustments." />
+            <Item label={locale["notice"]} value={locale["notice_value"]} />
 
             
             <div className="mb-8">
                 <label className="flex justify-between items-center mb-4 text-sm text-white font-medium tracking-tight">
-                    <span>Current Scale</span>
+                    <span>{locale["current_scale"]}</span>
                     <span className="text-white font-bold text-sm py-1.5 px-3.5 rounded-lg border border-white/50 ">
                         {currentScale}
                     </span>
@@ -122,7 +122,7 @@ const ScaleMenu = () => {
             </div>
 
             <div className="text-center mb-6 text-xs text-gray-200 font-medium bg-white/5 px-4.5 py-2.5 rounded-lg border border-white/50 backdrop-blur-sm transition-all duration-200 ease-out hover:bg-white/8">
-                Range: {minScale} - {maxScale}
+                {locale["range"]}: {minScale} - {maxScale}
             </div>
 
             <div className="flex gap-2 justify-center mt-8">
@@ -130,13 +130,13 @@ const ScaleMenu = () => {
                     className="px-7 py-1.5 rounded-md cursor-pointer text-sm font-medium transition-all duration-300 ease-out w-full text-white relative overflow-hidden tracking-tight bg-white/5 text-gray-300 border border-white/50 hover:text-white hover:border-white/15"
                     onClick={handleClose}
                 >
-                    Close
+                    {locale["close"]}
                 </button>
                 <button 
                     className="px-7 py-1.5 rounded-md cursor-pointer text-sm font-medium transition-all duration-300 ease-out text-black w-full relative overflow-hidden tracking-tight bg-white border border-white/50 hover:bg-white/80 hover:border-white/15"
                     onClick={handleSave}
                 >
-                    Apply
+                    {locale["apply"]}
                 </button>
             </div>
         </div>

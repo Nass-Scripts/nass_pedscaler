@@ -1,7 +1,9 @@
-import { Component } from "react"
+import { Component, useState } from "react"
 import { useNui, callNui } from "./utils/FiveM"
+var locale = {}
 import '../../styles/app.css'
-import ScaleMenu from "./componenets/ScaleMenu.jsx"
+import ScaleMenu from "./components/ScaleMenu.jsx"
+
 
 export default class App extends Component {
     state = {
@@ -11,7 +13,7 @@ export default class App extends Component {
     render() {
         return (
             this.state.visible ?
-                <ScaleMenu />
+                <ScaleMenu locale={locale} />
             :
                 undefined
         )
@@ -21,8 +23,8 @@ export default class App extends Component {
         useNui("visible", (eventData) => {
             this.setState({visible: eventData.data})
         })
-        useNui('visible_check', () => {
-            callNui('visible_check_cb', this.state.visible)
+        callNui('getLocale', {}, (eventData) => {
+            locale = eventData
         })
     }
 }

@@ -112,9 +112,14 @@ RegisterNUICallback('get_config', function(data, cb)
 end)
 
 RegisterNetEvent('nass_pedscaler:openMenu', function()
+    print("Opening ped scaler menu...")
     SetNuiFocus(true, true)
     SendNUIMessage({
         action = "visible",
         data = true,
     })
+end)
+
+RegisterNUICallback('getLocale', function(data, cb)
+    cb(Config.locale)
 end)
