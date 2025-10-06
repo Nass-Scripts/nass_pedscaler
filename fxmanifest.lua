@@ -18,9 +18,8 @@ shared_scripts {'locale/*.lua', 'config.lua'}
 
 client_scripts {'client/**.lua'}
 
-server_scripts {'@oxmysql/lib/MySQL.lua','server/**.lua'}
+server_scripts {'server/**.lua'}
 
-dependencies {'nass_lib'}
 
 escrow_ignore {
     --'**',
