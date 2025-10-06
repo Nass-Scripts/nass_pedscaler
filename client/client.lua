@@ -1,5 +1,21 @@
---https://github.com/alp1x/um-ped-scale 
---Main scaling function based off of this script 
+--[[
+    https://github.com/alp1x/um-ped-scale 
+    Main scaling function based off of this script
+
+    ███╗   ██╗ █████╗ ███████╗███████╗        ██████╗ ███████╗██████╗ ███████╗ ██████╗ █████╗ ██╗     ███████╗██████╗ 
+    ████╗  ██║██╔══██╗██╔════╝██╔════╝        ██╔══██╗██╔════╝██╔══██╗██╔════╝██╔════╝██╔══██╗██║     ██╔════╝██╔══██╗
+    ██╔██╗ ██║███████║███████╗███████╗        ██████╔╝█████╗  ██║  ██║███████╗██║     ███████║██║     █████╗  ██████╔╝
+    ██║╚██╗██║██╔══██║╚════██║╚════██║        ██╔═══╝ ██╔══╝  ██║  ██║╚════██║██║     ██╔══██║██║     ██╔══╝  ██╔══██╗
+    ██║ ╚████║██║  ██║███████║███████║███████╗██║     ███████╗██████╔╝███████║╚██████╗██║  ██║███████╗███████╗██║  ██║
+    ╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚═╝     ╚══════╝╚═════╝ ╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝      
+    
+    https://discord.gg/nass 
+
+    Please support the development of this script by joining our discord server.
+]]
+
+
+
 local function norm(vec)
     local mag = math.sqrt(vec.x ^ 2 + vec.y ^ 2 + vec.z ^ 2)
     if mag > 0 then
@@ -113,7 +129,6 @@ RegisterNUICallback('get_config', function(data, cb)
 end)
 
 RegisterNetEvent('nass_pedscaler:openMenu', function()
-    print("Opening ped scaler menu...")
     SetNuiFocus(true, true)
     SendNUIMessage({
         action = "visible",
