@@ -1,7 +1,7 @@
 import { Component, useState } from "react"
 import { useNui, callNui } from "./utils/FiveM"
 var locale = {}
-import '../../styles/app.css'
+import './app.css'
 import ScaleMenu from "./components/ScaleMenu.jsx"
 
 

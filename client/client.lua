@@ -1,4 +1,5 @@
-
+--https://github.com/alp1x/um-ped-scale 
+--Main scaling function based off of this script 
 local function norm(vec)
     local mag = math.sqrt(vec.x ^ 2 + vec.y ^ 2 + vec.z ^ 2)
     if mag > 0 then

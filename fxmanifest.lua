@@ -1,4 +1,4 @@
-version '1.0.0' -- Use this script version when making a ticket
+version '1.0.0'
 
 use_experimental_fxv2_oal 'yes'
 game 'gta5'
@@ -30,4 +30,4 @@ escrow_ignore {
     'server/unlocked.lua',
 }
 
-fx_version 'cerulean' -- This is NOT the script version when making a ticket
+fx_version 'cerulean'

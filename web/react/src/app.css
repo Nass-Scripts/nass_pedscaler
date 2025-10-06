@@ -14,7 +14,6 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Animation keyframes for Tailwind conversion */
 @keyframes modalFadeIn {
     to {
         transform: translateY(-50%) scale(1);

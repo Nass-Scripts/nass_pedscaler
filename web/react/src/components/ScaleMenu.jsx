@@ -2,14 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useNui, callNui } from '../utils/FiveM';
 
 const ScaleMenu = ( { locale } ) => {
-    // State for current scale value
     const [currentScale, setCurrentScale] = useState(1.0);
     const [minScale, setMinScale] = useState(0.1);
     const [maxScale, setMaxScale] = useState(2.0);
-
-    // Load config values when component mounts
     useEffect(() => {
-        // Listen for config data from the client
         useNui('config_data', (eventData) => {
             if (eventData.data && eventData.data.scaling) {
                 setMinScale(eventData.data.scaling.min || 0.1);
@@ -18,29 +14,24 @@ const ScaleMenu = ( { locale } ) => {
             }
         });
 
-        // Request config data from client
         callNui('get_config');
     }, []);
 
-    // Handle slider changes
     const handleScaleChange = (event) => {
         const newValue = parseFloat(event.target.value);
         setCurrentScale(newValue);
         
-        // Send NUI callback for slider update
         callNui('slider_updated', {
             value: newValue
         });
     };
 
-    // Handle save button
     const handleSave = () => {
         callNui('save_scale', {
             scale: currentScale
         });
     };
 
-    // Handle close button
     const handleClose = () => {
         callNui('close_menu');
     };
@@ -73,7 +64,6 @@ const ScaleMenu = ( { locale } ) => {
                     </span>
                 </label>
                 
-                {/* Modern slider container */}
                 <div className="relative">
                     <input
                         type="range"

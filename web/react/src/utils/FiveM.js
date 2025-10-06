@@ -7,8 +7,8 @@ function addDebugLog(message, data = null) {
         message,
         data: data ? JSON.stringify(data) : null
     }
-    debugLogs = [...debugLogs, log].slice(-50) // Keep last 50 logs
-    window.debugLogs = debugLogs // Make it globally accessible
+    debugLogs = [...debugLogs, log].slice(-50)
+    window.debugLogs = debugLogs 
 }
 
 function useNui(action, handler) {
@@ -43,8 +43,6 @@ function callNui(action, data, handler) {
     });
 }
 
-// Add initial debug log
-addDebugLog(`FiveM.js loaded, resource name: ${GetParentResourceName()}`)
 
 window.addEventListener('message', (event) => {
     try {
