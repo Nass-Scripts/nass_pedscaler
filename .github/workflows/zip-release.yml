@@ -1,0 +1,48 @@
+name: Build ZIP
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+
+jobs:
+  zip:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set zip name
+        run: |
+          REPO="${GITHUB_REPOSITORY##*/}"
+          echo "ZIP_NAME=${REPO}.zip" >> "$GITHUB_ENV"
+
+      - name: Create flat zip (no root folder)
+        run: |
+          cd "$GITHUB_WORKSPACE"
+          zip -r "${ZIP_NAME}" ./* \
+            -x "web/react/*" "web/react/**" \
+            -x ".git/*" ".git/**" \
+            -x "**/node_modules/**" \
+            -x ".gitignore" \
+            -x ".github/**" \
+            -x "**/*.zip"
+
+      - name: Upload to GitHub Release (always overwrite 'latest')
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Latest Build
+          body: |
+            This is an automatically built ZIP from the latest push to `main`.
+          draft: false
+          prerelease: false
+          files: |
+            ${{ env.ZIP_NAME }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
