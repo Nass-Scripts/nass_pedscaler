@@ -20,13 +20,4 @@ client_scripts {'client/**.lua'}
 
 server_scripts {'server/**.lua'}
 
-
-escrow_ignore {
-    --'**',
-    'locale.lua',
-    'config.lua',
-    'client/unlocked.lua',
-    'server/unlocked.lua',
-}
-
 fx_version 'cerulean'
