@@ -18,7 +18,7 @@ The documentation covers:
 If you have any questions, need help, or want to connect with other users, **join our Discord community!**  
 We’re always happy to help and hear your feedback.
 
-👉 [Join our Discord](https://discord.gg/your-discord-invite)
+👉 [Join our Discord](https://discord.gg/nass)
 
 By joining, you can:
 - Get real-time support
