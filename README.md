@@ -191,10 +191,6 @@ By joining, you can:
 
 We welcome contributions! Please create pull requests or directly contact me on discord.
 
-## License
-
-This script is provided as-is. Please respect the terms of use and support the developers.
-
 ---
 
 Thank you for using our script. Your support means a lot to us!
