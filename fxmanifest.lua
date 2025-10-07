@@ -18,16 +18,6 @@ shared_scripts {'locale/*.lua', 'config.lua'}
 
 client_scripts {'client/**.lua'}
 
-server_scripts {'@oxmysql/lib/MySQL.lua','server/**.lua'}
-
-dependencies {'nass_lib'}
-
-escrow_ignore {
-    --'**',
-    'locale.lua',
-    'config.lua',
-    'client/unlocked.lua',
-    'server/unlocked.lua',
-}
+server_scripts {'server/**.lua'}
 
 fx_version 'cerulean'
