@@ -4,17 +4,17 @@ A comprehensive FiveM script that allows players to scale their character's heig
 
 ## Features
 
-- 🎯 **Real-time scaling**: Adjust your character's height from 0.1x to 2.0x scale
-- 🎨 **Modern UI**: Clean, responsive web-based interface
-- 🔧 **Framework Support**: Compatible with ESX, QBCore, and Standalone
-- 👥 **Multiplayer Sync**: All players see each other's scaled characters
-- 💾 **Persistent Storage**: Your scale settings are saved and restored
-- 🛡️ **Permission System**: Configurable ACE permissions for commands
-- 🌍 **Multi-language**: Support for English and Spanish (easily extensible)
+- **Real-time scaling**: Adjust your character's height from 0.1x to 2.0x scale
+- **Modern UI**: Clean, responsive web-based interface
+- **Framework Support**: Compatible with ESX, QBCore, and Standalone
+- **Multiplayer Sync**: All players see each other's scaled characters
+- **Persistent Storage**: Your scale settings are saved and restored
+- **Permission System**: Configurable ACE permissions for commands
+- **Multi-language**: Support for English and Spanish (easily extensible)
 
 ## Installation Guide
 
-### Prerequisites
+### Dependencies
 
 - FiveM Server
 - One of the supported frameworks: ESX, QBCore, or Standalone
