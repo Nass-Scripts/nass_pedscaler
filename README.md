@@ -17,7 +17,7 @@ A comprehensive FiveM script that allows players to scale their character's heig
 ### Dependencies
 
 - FiveM Server
-- One of the supported frameworks: ESX, QBCore, or Standalone
+- One of the supported frameworks: ESX, QBCore, QBox, or Standalone
 - Basic knowledge of FiveM resource installation
 
 ### Step 1: Download and Extract
@@ -34,7 +34,7 @@ Add the following line to your `server.cfg`:
 ensure nass_pedscaler
 ```
 
-**Important**: Make sure to add this line AFTER your framework initialization (ESX/QBCore).
+**Important**: Make sure to add this line AFTER your framework initialization (ESX/QBCore/QBox).
 
 ### Step 3: Framework Configuration
 
@@ -134,6 +134,7 @@ add_ace group.admin nass_fighting.scaler allow
 
 - **Vehicle Scaling**: When entering/exiting vehicles, your scale resets to 1.0
 - **Terrain Changes**: You may notice slight scale adjustments when changing terrain
+- **Aiming**: You may also notice your scale will reset while aiming a weapon
 - **Persistence**: Your scale is saved and will be restored when you reconnect
 
 ## Troubleshooting
