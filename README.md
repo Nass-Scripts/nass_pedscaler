@@ -41,6 +41,7 @@ ensure nass_pedscaler
 The script automatically detects your framework. No additional configuration is required for:
 - **ESX**: Works out of the box
 - **QBCore**: Works out of the box  
+- **QBox**: Works out of the box 
 - **Standalone**: Works without any framework
 
 ### Step 4: Start Your Server
