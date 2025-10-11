@@ -13,10 +13,11 @@
 
     Please support the development of this script by joining our discord server.
 ]]
-
+scaledPlayers = {}
 RegisterNetEvent('nass_pedscaler:syncScale', function(scale)
     local src = source
     playerScaling[getPlayerIdentifier(src)] = scale
+    scaledPlayers[tostring(src)] = scale
 
     TriggerClientEvent('nass_pedscaler:syncScale', -1, src, scale)
 end)
@@ -35,6 +36,7 @@ if Config.commands.resetScale.enabled then
         local id = tonumber(args[1]) or source
         if hasPermission(source, id == source and "resetSelf" or "resetOther") then
             playerScaling[getPlayerIdentifier(id)] = nil
+            scaledPlayers[tostring(id)] = nil
             TriggerClientEvent('nass_pedscaler:syncScale', -1, id, nil)
         end
     end, false)

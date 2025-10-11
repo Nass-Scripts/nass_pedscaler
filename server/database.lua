@@ -1,10 +1,13 @@
 playerScaling = json.decode(LoadResourceFile(GetCurrentResourceName(), "./playerScaling.json")) or {}
 
 function onPlayerLoaded(identifier, source)
+    TriggerClientEvent('nass_pedscaler:syncCurrentScaling', source, scaledPlayers)
+    
     local playerscale = playerScaling[identifier]
     if playerscale and playerscale ~= 1.0 then
         TriggerClientEvent('nass_pedscaler:syncScale', -1, source, playerscale)
     end
+    
 end
 
 AddEventHandler('onResourceStart', function(resourceName)

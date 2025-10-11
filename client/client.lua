@@ -51,6 +51,12 @@ end
 
 local syncedScales = {}
 
+RegisterNetEvent('nass_pedscaler:syncCurrentScaling', function(players)
+    for k, v in pairs(players) do
+        TriggerEvent('nass_pedscaler:syncScale', tonumber(k), v)
+    end
+end)
+
 RegisterNetEvent('nass_pedscaler:syncScale', function(src, scale)
     if syncedScales[tostring(src)] ~= nil then
         syncedScales[tostring(src)] = nil
@@ -128,6 +134,10 @@ RegisterNUICallback('get_config', function(data, cb)
     cb('ok')
 end)
 
+RegisterNUICallback('getLocale', function(data, cb)
+    cb(Config.locale)
+end)
+
 RegisterNetEvent('nass_pedscaler:openMenu', function()
     SetNuiFocus(true, true)
     SendNUIMessage({
@@ -136,6 +146,3 @@ RegisterNetEvent('nass_pedscaler:openMenu', function()
     })
 end)
 
-RegisterNUICallback('getLocale', function(data, cb)
-    cb(Config.locale)
-end)
