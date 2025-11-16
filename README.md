@@ -1,7 +1,7 @@
 # Nass Ped Scaler
 
 A comprehensive FiveM script that allows players to scale their character's height/size in real-time with a beautiful web-based interface.
-
+[Preview](https://youtu.be/YDY-5ry5fvo)
 ## Features
 
 - **Real-time scaling**: Adjust your character's height from 0.1x to 2.0x scale
