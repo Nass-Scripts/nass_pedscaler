@@ -1,5 +1,7 @@
 # Nass Ped Scaler
 
+Before you go through the README file, I would first like to give a huge thanks to [Draythianna](https://github.com/Draythianna). They fixed an issue that gave me large headaches and was integral in the creation of this script. Please know, they are the reason you are able to use this script the way that it is.
+
 A comprehensive FiveM script that allows players to scale their character's height/size in real-time with a beautiful web-based interface.
 [Preview](https://youtu.be/YDY-5ry5fvo)
 ## Features
