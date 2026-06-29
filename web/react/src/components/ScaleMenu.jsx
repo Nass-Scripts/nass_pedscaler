@@ -60,7 +60,7 @@ const ScaleMenu = ( { locale } ) => {
                 <label className="flex justify-between items-center mb-4 text-sm text-white font-medium tracking-tight">
                     <span>{locale["current_scale"]}</span>
                     <span className="text-white font-bold text-sm py-1.5 px-3.5 rounded-lg border border-white/50 ">
-                        {currentScale}
+                        {parseFloat(currentScale).toFixed(2)}
                     </span>
                 </label>
                 
@@ -69,8 +69,8 @@ const ScaleMenu = ( { locale } ) => {
                         type="range"
                         min={minScale}
                         max={maxScale}
-                        step="0.1"
-                        value={currentScale}
+                        step="0.01"
+                        value={parseFloat(currentScale).toFixed(2)}
                         onChange={handleScaleChange}
                         className="
                             w-full h-1

@@ -24,6 +24,9 @@ local function norm(vec)
     return vec
 end
 
+-- Per-ped smoothed Z, keyed by ped entity handle
+local smoothedZ = {}
+
 local function applyScaleToEntity(ped, scale)
     local forward, right, upVector, position = GetEntityMatrix(ped)
 
@@ -31,20 +34,57 @@ local function applyScaleToEntity(ped, scale)
     local rightNorm = norm(right) * scale
     local upNorm = norm(upVector) * scale
 
-    local zOffset = (1.0 - scale) * 1.0 * 0.5
-    local adjustedZ = position.z - zOffset
+    -- Only look ahead when moving up, cast straight down when descending
+    local vel = GetEntityVelocity(ped)
+    local isMovingUp = vel.z > 0.1
+    local lookAhead = isMovingUp and 0.3 or 0.0
 
-    if GetEntitySpeed(ped) > 0 then
-        adjustedZ = adjustedZ - zOffset
+    local rayStart = vector3(position.x + vel.x * lookAhead, position.y + vel.y * lookAhead, position.z + 2.0)
+    local rayEnd   = vector3(position.x + vel.x * lookAhead, position.y + vel.y * lookAhead, position.z - 2.5)
+    local ray = StartShapeTestRay(rayStart.x, rayStart.y, rayStart.z, rayEnd.x, rayEnd.y, rayEnd.z, 1 | 16, ped, 0)
+    local _, hit, groundPos = GetShapeTestResult(ray)
+
+    -- Fallback: straight down with longer range for flat ground / last step
+    if hit ~= 1 then
+        local rayStart2 = vector3(position.x, position.y, position.z + 2.0)
+        local rayEnd2   = vector3(position.x, position.y, position.z - 5.0)
+        local ray2 = StartShapeTestRay(rayStart2.x, rayStart2.y, rayStart2.z, rayEnd2.x, rayEnd2.y, rayEnd2.z, 1 | 16, ped, 0)
+        _, hit, groundPos = GetShapeTestResult(ray2)
+    end
+
+    local groundZ
+    if hit == 1 then
+        groundZ = groundPos.z
     else
-        adjustedZ = adjustedZ + zOffset
+        local found, gz = GetGroundZFor_3dCoord(position.x, position.y, position.z, false)
+        groundZ = found and gz or position.z
+    end
+
+    local targetZ = groundZ + scale + 0.04
+
+    local pedKey = tostring(ped)
+    if smoothedZ[pedKey] == nil then
+        smoothedZ[pedKey] = targetZ
+    end
+
+    if targetZ > smoothedZ[pedKey] then
+        -- Going up: snap for large steps, lerp for small ones
+        local diff = targetZ - smoothedZ[pedKey]
+        if diff > 0.3 then
+            smoothedZ[pedKey] = targetZ
+        else
+            smoothedZ[pedKey] = smoothedZ[pedKey] + diff * 0.3
+        end
+    else
+        -- Going down: always lerp smoothly
+        smoothedZ[pedKey] = smoothedZ[pedKey] + (targetZ - smoothedZ[pedKey]) * 0.18
     end
 
     SetEntityMatrix(ped,
         forwardNorm.x, forwardNorm.y, forwardNorm.z,
         rightNorm.x, rightNorm.y, rightNorm.z,
         upNorm.x, upNorm.y, upNorm.z,
-        position.x, position.y, adjustedZ
+        position.x, position.y, smoothedZ[pedKey]
     )
 end
 
@@ -128,7 +168,7 @@ RegisterNUICallback('get_config', function(data, cb)
         action = "config_data",
         data = {
             scaling = Config.scaling,
-            currentScale = syncedScales[tostring(serverId)] or 1.0 -- Default to 1.0, you could store current scale in a variable
+            currentScale = syncedScales[tostring(serverId)] or 1.0
         }
     })
     cb('ok')
@@ -145,4 +185,3 @@ RegisterNetEvent('nass_pedscaler:openMenu', function()
         data = true,
     })
 end)
-
