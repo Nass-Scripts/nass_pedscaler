@@ -91,6 +91,15 @@ end
 
 local syncedScales = {}
 
+-- Resolve the ped that belongs to a server id. Returns 0 when that player is
+-- not currently in scope. IMPORTANT: never fall through to GetPlayerPed(-1),
+-- which returns the LOCAL player's ped and would scale the wrong ped.
+local function getPedForServerId(src)
+    local playerIdx = GetPlayerFromServerId(src)
+    if playerIdx == -1 then return 0 end
+    return GetPlayerPed(playerIdx)
+end
+
 RegisterNetEvent('nass_pedscaler:syncCurrentScaling', function(players)
     for k, v in pairs(players) do
         TriggerEvent('nass_pedscaler:syncScale', tonumber(k), v)
@@ -100,24 +109,31 @@ end)
 RegisterNetEvent('nass_pedscaler:syncScale', function(src, scale)
     if syncedScales[tostring(src)] ~= nil then
         syncedScales[tostring(src)] = nil
-        applyScaleToEntity(PlayerPedId(), 1.0)
+        local ped = getPedForServerId(src)
+        if ped ~= 0 and DoesEntityExist(ped) then
+            applyScaleToEntity(ped, 1.0)
+        end
         Wait(100)
     end
 
     syncedScales[tostring(src)] = scale
     if scale ~= nil then
-        local playerId = GetPlayerFromServerId(src)
-        startScale(src, playerId, scale)
+        startScale(src, scale)
     else
-        applyScaleToEntity(PlayerPedId(), 1.0)
+        local ped = getPedForServerId(src)
+        if ped ~= 0 and DoesEntityExist(ped) then
+            applyScaleToEntity(ped, 1.0)
+        end
     end
 end)
 
-function startScale(src, playerId, scale)
+function startScale(src, scale)
     CreateThread(function()
         while syncedScales[tostring(src)] ~= nil do
-            local ped = GetPlayerPed(playerId)
-            if DoesEntityExist(ped) then
+            -- Re-resolve every frame: the target player may not be in scope
+            -- yet (e.g. right after joining) and only stream in later.
+            local ped = getPedForServerId(src)
+            if ped ~= 0 and DoesEntityExist(ped) then
                 applyScaleToEntity(ped, scale)
                 if Config.scaling.scaleSpeed.enabled then
                     SetPedMoveRateOverride(ped, Config.scaling.scaleSpeed.inverse and (1 / scale) or scale)

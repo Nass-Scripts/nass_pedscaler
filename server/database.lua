@@ -7,7 +7,6 @@ function onPlayerLoaded(identifier, source)
     if playerscale and playerscale ~= 1.0 then
         TriggerClientEvent('nass_pedscaler:syncScale', -1, source, playerscale)
     end
-    
 end
 
 AddEventHandler('onResourceStart', function(resourceName)

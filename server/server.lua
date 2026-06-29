@@ -20,6 +20,7 @@ RegisterNetEvent('nass_pedscaler:syncScale', function(scale)
     scaledPlayers[tostring(src)] = scale
 
     TriggerClientEvent('nass_pedscaler:syncScale', -1, src, scale)
+    SaveResourceFile(GetCurrentResourceName(), "./playerScaling.json", json.encode(playerScaling, {indent = true}))
 end)
 
 if Config.commands.openMenu.enabled then
@@ -38,6 +39,7 @@ if Config.commands.resetScale.enabled then
             playerScaling[getPlayerIdentifier(id)] = nil
             scaledPlayers[tostring(id)] = nil
             TriggerClientEvent('nass_pedscaler:syncScale', -1, id, nil)
+            SaveResourceFile(GetCurrentResourceName(), "./playerScaling.json", json.encode(playerScaling, {indent = true}))
         end
     end, false)
 end
